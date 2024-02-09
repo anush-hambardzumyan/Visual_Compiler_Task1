@@ -48,4 +48,9 @@ long int sum;
 const int constantValue = 11;
 `````
 
-
+---------
+**How to use this program** <br>
+* Clone the repository to your local pc
+* Write the code you want to analyze in ``"text.txt"``
+* Compile the ``parser.cpp`` file and ``./a.out``
+* TaDaam!! all required results are stored in appropriate files.
