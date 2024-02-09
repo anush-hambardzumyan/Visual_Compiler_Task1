@@ -6,19 +6,28 @@
 #include <utility>
 #include <algorithm>
 
-template<typename T>
 struct variable
 {
+    variable(std::string name1, std::string var_type1, bool uns1,bool s1,bool has_val1, std::string value,int line1 , int pos1 , bool is_valid1)
+    : name(name1) , var_type(var_type1) , Unsigned(uns1) , Signed(s1) , has_val(has_val1) ,
+    val(value) , line(line1) , pos(pos1) , is_valid_dec(is_valid1) {} 
+
+    variable() : default_ctor(1) {}
+
+    std::string name;
     std::string var_type;
     bool Unsigned;
     bool Signed;
-    T val;
+    bool has_val;
+    std::string val;
+    int line;
+    int pos;
+    bool is_valid_dec;
+    bool default_ctor;
 };
 
-template<typename T>
-std::vector<std::pair<std::string,variable<T>>> allvars;  //name and variable
 
-std::vector<std::vector<std::string>> pos_of_vars;
+std::vector<variable> allvars;  //name and variable
 
 std::vector<std::string> allkeywords = 
 {
@@ -26,4 +35,16 @@ std::vector<std::string> allkeywords =
 };
 
 std::vector<std::string> lines;
+
+variable findVariable(const std::string& str) 
+{
+    for(int i = 0; i < allvars.size(); ++i)
+    {
+        if(str == allvars[i].name)
+        {
+            return allvars[i];
+        }
+    }
+    return variable();
+}
 

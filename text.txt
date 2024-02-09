@@ -1,2 +1,2 @@
 unsigned int integerNumber = 10; Double; double doubleNumber = 3.14159; unsigned
-bareeev
+bareeev a; a; a;
