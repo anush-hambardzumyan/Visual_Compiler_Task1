@@ -1,8 +1,10 @@
 #pragma once
 #include "tokenizing.hpp"
-#include <fstream>
 #include <iomanip>
+
+void write_to_result();
 void modify_var_type(variable& var);
+void write_to_typeInfo();
 
 void write_to_result()
 {
@@ -20,11 +22,6 @@ void write_to_result()
                 << std::setw(15) << std::internal << "Name"
                 << std::setw(15) << std::internal << "Line"
                 << std::setw(15) << std::internal << "Position" << std::endl;    
-
-    // for(int i = 0; i < allvars.size(); ++i)
-    // {
-    //     modify_var_type(allvars[i]);
-    // }
 
     for(int i = 0; i < allcalled.size(); ++i)
     {

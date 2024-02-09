@@ -142,3 +142,8 @@ void var_and_val_finder(std::vector<std::string>& each_dec, variable& each_var)
         each_var.val = "GARBAGE";
     }
 }
+
+int main()
+{
+    parsing();
+}

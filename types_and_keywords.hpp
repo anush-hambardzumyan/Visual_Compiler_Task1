@@ -26,9 +26,8 @@ struct variable
     : name(name1) , var_type("-") ,line(line1) , pos(pos1){}
 };
 
-
 std::vector<variable> allvars;  //name and variable
-std::vector<variable> allcalled;
+std::vector<variable> allcalled; //name and variable
 
 std::vector<std::string> allkeywords = 
 {
