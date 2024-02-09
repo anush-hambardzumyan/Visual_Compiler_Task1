@@ -1,5 +1,5 @@
            Type          Value           Name           Line       Position
               d        GARBAGE         Double              0              1
-             ud        3.14159   doubleNumber              1              2
-            cui             11  constantValue              4              0
+              d        3.14159   doubleNumber              1              2
+             ci             11  constantValue              4              0
               -              -     otherValue              4              2

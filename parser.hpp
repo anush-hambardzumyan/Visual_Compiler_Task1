@@ -1,10 +1,11 @@
 #pragma once
 #include "types_and_keywords.hpp"
 #include "tokenizing.hpp"
-#include "write_to_result.hpp"
+#include "writeToFiles.hpp"
 
 void type_finder(std::vector<std::string>& each_dec, variable& each_var);
 void var_and_val_finder(std::vector<std::string>& each_dec, variable& each_var);
+
 
 void parsing()
 {
@@ -12,7 +13,7 @@ void parsing()
     for(int i = 0; i < test.size(); ++i)
     {
         for(int j = 0; j < test[i].size(); ++j)
-        {
+        {        
             std::vector<std::string> each_dec = splitString(test[i][j], ' ');
             if(each_dec.size() == 1) 
             {
@@ -43,8 +44,15 @@ void parsing()
                 {
                     each_var.Unsigned = 1;   
                 } 
-                else {each_var.Signed = 1;}
+                
 
+                for(int i = 0; i < each_dec.size(); ++i)
+                {
+                    if(each_dec[i] == "long")
+                    {
+                        each_var.long_counter++;
+                    }
+                }
 
                 type_finder(each_dec,each_var);
                 var_and_val_finder(each_dec,each_var);
@@ -55,6 +63,7 @@ void parsing()
         }        
     }
     write_to_result();
+    write_to_typeInfo();
 }
 
 void type_finder(std::vector<std::string>& each_dec, variable& each_var)
@@ -101,7 +110,7 @@ void type_finder(std::vector<std::string>& each_dec, variable& each_var)
         return;   
     }
 
-    else if(each_var.Signed || each_var.Unsigned)  //unsigned f; -> f is integer
+    else if(each_var.Signed || each_var.Unsigned)  //unsigned f; -> f is integer    signed f -> f is integer
     {
         each_var.var_type = "i";
         return;
@@ -117,18 +126,17 @@ void var_and_val_finder(std::vector<std::string>& each_dec, variable& each_var)
         if(each_dec[i] == "=")
         {
             assigning = true;
+            each_var.has_val = true;
             each_var.val = each_dec[each_dec.size() - 1];
-            each_var.has_val = 1;
-            each_var.is_valid_dec = 1;
         }
     }
 
-    if(assigning) //unsigned long long alo = 9
+    if(assigning) //unsigned int alo = 9;
     {
         each_var.name = each_dec[each_dec.size() - 3];
     }
 
-    else //unsigned long long alo
+    else //unsigned int alo;
     {
         each_var.name = each_dec[each_dec.size() - 1];
         each_var.val = "GARBAGE";
