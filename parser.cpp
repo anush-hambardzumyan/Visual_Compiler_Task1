@@ -1,11 +1,8 @@
-#pragma once
-#include "types_and_keywords.hpp"
 #include "tokenizing.hpp"
 #include "writeToFiles.hpp"
 
 void type_finder(std::vector<std::string>& each_dec, variable& each_var);
 void var_and_val_finder(std::vector<std::string>& each_dec, variable& each_var);
-
 
 void parsing()
 {
@@ -19,12 +16,15 @@ void parsing()
             {
                 if(findVariable(each_dec[0]).def_ctor == 1) // A ;
                 {
-                    allcalled.push_back(variable(each_dec[0],i,j));
+                    variable ob1 = variable(each_dec[0],i,j);
+                    ob1.was_called = 1;
+                    allvars.push_back(ob1);
                 }
 
                 else
                 {
-                    allcalled.push_back(findVariable(each_dec[0]));
+                    variable var1 = findVariable(each_dec[0]);
+                    var1.was_called = 1; 
                 }
             }
 
@@ -32,6 +32,7 @@ void parsing()
             {
                 variable each_var = variable();
                 each_var.def_ctor = 0;
+                each_var.is_valid = 1;     
 
                 auto it1 = std::find(each_dec.begin(),each_dec.end(),"const");
                 if(it1 != each_dec.end())
@@ -62,8 +63,7 @@ void parsing()
             }
         }        
     }
-    write_to_result();
-    write_to_typeInfo();
+    write_to_files();
 }
 
 void type_finder(std::vector<std::string>& each_dec, variable& each_var)
@@ -72,6 +72,7 @@ void type_finder(std::vector<std::string>& each_dec, variable& each_var)
     if(it1 != each_dec.end())
     {
         each_var.var_type = "i";
+        each_var.var_typename += "int ";
         return;   
     }
 
@@ -79,6 +80,7 @@ void type_finder(std::vector<std::string>& each_dec, variable& each_var)
     if(it2 != each_dec.end())
     {
         each_var.var_type = "d";
+        each_var.var_typename += "double ";
         return;   
     }
 
@@ -86,6 +88,7 @@ void type_finder(std::vector<std::string>& each_dec, variable& each_var)
     if(it3 != each_dec.end())
     {
         each_var.var_type = "f";
+        each_var.var_typename += "float ";
         return;   
     }
 
@@ -93,6 +96,7 @@ void type_finder(std::vector<std::string>& each_dec, variable& each_var)
     if(it4 != each_dec.end())
     {
         each_var.var_type = "sh";
+        each_var.var_typename += "short ";
         return;   
     }
 
@@ -100,6 +104,7 @@ void type_finder(std::vector<std::string>& each_dec, variable& each_var)
     if(it5 != each_dec.end())
     {
         each_var.var_type = "b";
+        each_var.var_typename += "bool ";
         return;   
     }
 
@@ -107,12 +112,14 @@ void type_finder(std::vector<std::string>& each_dec, variable& each_var)
     if(it6 != each_dec.end())
     {
         each_var.var_type = "ch";
+        each_var.var_typename += "char ";
         return;   
     }
 
     else if(each_var.Signed || each_var.Unsigned)  //unsigned f; -> f is integer    signed f -> f is integer
     {
         each_var.var_type = "i";
+        each_var.var_typename += "int ";
         return;
     }
     return ;
@@ -126,7 +133,6 @@ void var_and_val_finder(std::vector<std::string>& each_dec, variable& each_var)
         if(each_dec[i] == "=")
         {
             assigning = true;
-            each_var.has_val = true;
             each_var.val = each_dec[each_dec.size() - 1];
         }
     }

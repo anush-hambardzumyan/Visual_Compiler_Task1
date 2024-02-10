@@ -1,7 +1,55 @@
-#pragma once
-#include "types_and_keywords.hpp"
+#ifndef TOKENIZING_HPP
+#define TOKENIZING_HPP
+
+#include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
+#include <map>
+#include <string>
+#include <utility>
+#include <algorithm>
+
+//TYPES AND KEYWORDS
+struct variable
+{
+    std::string name = "-";
+    std::string var_type = "-";
+    std::string var_typename;
+    std::string val = "-";
+    int line;
+    int pos;
+    int long_counter = 0;
+    bool Unsigned = 0;
+    bool Signed = 0;
+    bool Constant = 0;
+    bool was_called = 0;
+    bool def_ctor = 0;
+    bool is_valid = 0;
+ 
+    variable() : def_ctor(true) {}
+
+    variable(std::string name1 , int line1 , int pos1) 
+    : name(name1) ,line(line1) , pos(pos1){}
+};
+
+std::vector<variable> allvars;  //name and variable
+std::vector<std::string> lines;
+
+variable ob = variable();
+variable& findVariable(const std::string& str) 
+{
+    for(int i = 0; i < allvars.size(); ++i)
+    {
+        if(str == allvars[i].name)
+        {
+            allvars[i].was_called = 1;
+            return allvars[i];
+        }
+    }
+    return ob;
+}
+////////
 
 std::vector<std::string> splitString(const std::string& input, char delimiter);
 std::vector<std::string> Lines();
@@ -36,13 +84,11 @@ std::vector<std::string> Lines()
     }
 
     std::string line;
-    int line_number = 0;
 
     while(!code_file.eof())
     {
         std::getline(code_file,line);
         lines.push_back(line);
-        line_number++;
     }
     code_file.close();
     return lines;
@@ -83,3 +129,5 @@ std::vector<std::vector<std::string>> lines_and_tokens()
     }
     return decStream;
 }
+
+#endif

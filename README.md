@@ -8,7 +8,7 @@ unsigned int integerNumber = 10; Double; double doubleNumber = 3.14159; unsigned
 char character = 'A'; unsigned float floatNumber = 2.71828f; unsigned short shortNumber
  = 1000; doubleNumber; unsigned bool boolean = true;  long long int result; long int sum;
 const int constantValue = 11;   constantValue;   otherValue;
-````
+```` 
 
 Names that do not have types should be considered output values, and declarations that are not valued will contain GARBAGE.
 
