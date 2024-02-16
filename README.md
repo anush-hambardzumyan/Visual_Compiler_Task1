@@ -2,7 +2,7 @@
 The program will receive a text.txt file as input, which will contain all simple type declarations.
 
 **text.txt**
-````
+````cpp
 int Integer; double Double; char Character; float Float; short Short; bool Boolean;
 unsigned int integerNumber = 10; Double; double doubleNumber = 3.14159; unsigned
 char character = 'A'; unsigned float floatNumber = 2.71828f; unsigned short shortNumber
@@ -30,7 +30,7 @@ ci             11                      constantInteger               4          
 <br>
 
 **typeInfo.txt**
-`````
+`````cpp
 int Integer;
 double Double;
 char Character;
@@ -52,5 +52,5 @@ const int constantValue = 11;
 **How to use this program** <br>
 * Clone the repository to your local PC.
 * Write the code you want to analyze in ``"text.txt"``.
-* Compile the ``parser.cpp`` file and execute ``a.out``.
+* Compile the ``parser.cpp`` file and execute ``./a.out``.
 * TaDaam!! all required results are stored in appropriate files.
